@@ -1,2 +1,6 @@
 # Algorithm
-record for leetcode
+---
+## Record for Leetcode
+---
+
+
