@@ -5,7 +5,7 @@ class Solution:
         size = len(s)
         if size < 2:
             return s
-        max_length = 1
+        max_length = 0
         start = 0
         dp = [[False for _ in range(size)] for _ in range(size)]
         for j in range(1, size):
@@ -29,13 +29,34 @@ class Solution:
         size = len(s)
         if size < 2:
             return s
-        max_length = 1
-        start = 0
+        max_length = 0
+        res = ""
+
+        for i in range(size):
+            odd, odd_len = self._center_spread(s, i, i)
+            even, even_len = self._center_spread(s, i, i + 1)
+
+            longer = odd if odd_len > even_len else even
+
+            if len(longer) > max_length:
+                max_length = len(longer)
+                res = longer
+
+        return res
 
     def _center_spread(self, s, start, end):
-        
+        i = start
+        j = end
+        while i >= 0 and j <= len(s) - 1 and s[i] == s[j]:
+            i -= 1
+            j += 1
+
+        return s[i + 1: j], j - i - 1
+
+    # def longestPalindrome_Manacher(self, s: str) -> str:
 
 
 if __name__ == "__main__":
     S = Solution()
     print(S.longestPalindrome_DynmicProgramming(s="aaaa"))
+    print(S.longestPalindrome_CenterSpreading(s="ac"))
