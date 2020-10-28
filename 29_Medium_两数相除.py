@@ -4,19 +4,25 @@ class Solution:
         if abs(divisor) > abs(dividend):
             return 0
         sign = (dividend > 0 and divisor > 0) or (dividend < 0 and divisor < 0)
-        quotient = 0
+        ans = 0
         dividend = abs(dividend)
         divisor = abs(divisor)
-        value = divisor
-        while value <= dividend:
-            quotient += 1
-            value += divisor
+        while divisor <= dividend:
+            quotient = 1
+            value = divisor
 
-        quotient = quotient if sign else -quotient
-        if (quotient > 2**31 - 1) or (quotient < -2**31):
+            while value + value <= dividend:
+                value += value
+                quotient += quotient
+            ans += quotient
+            dividend -= value
+
+        ans = ans if sign else -ans
+
+        if (ans > 2**31 - 1) or (ans < -2**31):
             return 2**31 - 1
         else:
-            return quotient
+            return ans
 
 
 if __name__ == "__main__":
