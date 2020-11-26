@@ -2,7 +2,8 @@ from typing import List
 
 
 class Solution:
-    # 动态规划解法，dp[i][j]代表 s[i]到s[j]（包含两端）最大子序和，状态转移由左下角元素得到，因此遍历从上至下，从左至右
+    # 动态规划解法，dp[i]代表到s[i]的最大子序和，状态转移由左元素得到
+    # 注意状态图维度的选取
     def maxSubArray(self, nums: List[int]) -> int:
         size = len(nums)
         dp = [0 for _ in range(size)]
