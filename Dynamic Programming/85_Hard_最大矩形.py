@@ -23,7 +23,7 @@ class Solution:
     #             # 先计算最大宽度
     #             width = dp[i][j] = dp[i][j - 1] + 1 if j else 1
     #
-    #             # 遍历所有可能长度计算面积
+    #             # 遍历所有可能高度计算面积
     #             for k in range(i, -1, -1):
     #                 height = i - k + 1
     #                 width = min(width, dp[k][j])
