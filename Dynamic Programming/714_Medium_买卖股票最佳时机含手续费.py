@@ -14,7 +14,7 @@ class Solution:
         # 定义dp[i][0]为第i天不持股，能拥有的最大利润
         # 定义dp[i][1]为第i天持股，能拥有的最大利润
         for i in range(1, len(prices)):
-            dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i])
+            dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i] - fee)
             dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - prices[i])
 
         # print(dp)
