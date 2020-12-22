@@ -7,7 +7,8 @@ class Solution:
 
         def backtrack(index, row, col):
 
-            if row < 0 or col < 0 or row >= len(board) or col >= len(board[0]) or flag[row][col] or board[row][col] != word[index]:
+            if row < 0 or col < 0 or row >= len(board) or col >= len(board[0]) or flag[row][col] or board[row][col] != \
+                    word[index]:
                 return False
 
             if index == len(word) - 1 and board[row][col] == word[-1]:
@@ -32,11 +33,16 @@ class Solution:
                         return True
         return False
 
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        ans = []
+        for word in words:
+            if self.exist(board, word):
+                ans.append(word)
+        return ans
+
+
 if __name__ == "__main__":
     S = Solution()
     print(
-        S.exist(board=[
-            ['A', 'B', 'C', 'E'],
-            ['S', 'F', 'C', 'S'],
-            ['A', 'D', 'E', 'E']
-        ], word="SEE"))
+        S.findWords(board=[["o", "a", "a", "n"], ["e", "t", "a", "e"], ["i", "h", "k", "r"], ["i", "f", "l", "v"]],
+                    words=["oath", "pea", "eat", "rain"]))
