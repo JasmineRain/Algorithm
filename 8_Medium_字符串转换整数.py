@@ -39,6 +39,7 @@ class Solution:
             automaton.get(c)
         return automaton.sign * automaton.ans
 
+
 if __name__ == "__main__":
     S = Solution()
     print(S.myAtoi(s="000000-42a12234"))
