@@ -1,40 +1,37 @@
 from typing import List
 
 
+# 回溯解法
 class Solution:
     def addOperators(self, num: str, target: int) -> List[str]:
-        if not num:
-            return
-        ans = []
-        res = self.merge(num, 0, len(num) - 1)
-        for summary, exp in res:
-            if summary == target:
-                ans.append(exp)
-        return ans
-
-    def merge(self, string, left, right):
-        if left == right:
-            return [[int(string[left]), string[left]]]
-        idx = left + (right - left) // 2
-        l1 = self.merge(string, left, idx)
-        l2 = self.merge(string, idx + 1, right)
-        return self.merge_two_lists(l1, l2)
-
-    def merge_two_lists(self, l1, l2):
         res = []
-        for e1 in l1:
-            for e2 in l2:
-                # print(e1, e2)
-                res.append([e1[0] + e2[0], e1[1] + "+" + e2[1]])
-                res.append([e1[0] - e2[0], e1[1] + "-" + e2[1]])
-                res.append([e1[0] * e2[0], e1[1] + "*" + e2[1]])
+
+        def backtrack(index, track, value, last):
+            if index == len(num):
+                if value == target:
+                    res.append(track)
+                return
+
+            for i in range(index, len(num)):
+                if i > index and num[index] == '0':
+                    break
+                candidate = num[index: i + 1]
+                if index == 0:
+                    backtrack(i + 1, track + candidate, value + int(candidate), int(candidate))
+                else:
+                    backtrack(i + 1, track + "+" + candidate, value + int(candidate), int(candidate))
+                    backtrack(i + 1, track + "-" + candidate, value - int(candidate), -int(candidate))
+                    backtrack(i + 1, track + "*" + candidate, value - last + last * int(candidate),
+                              last * int(candidate))
+
+        backtrack(0, "", 0, 0)
         return res
 
 
 if __name__ == "__main__":
     S = Solution()
-    # print(S.addOperators(num="123", target=6))
+    print(S.addOperators(num="105", target=5))
+    print(S.addOperators(num="123", target=6))
     print(S.addOperators(num="232", target=8))
-    # print(S.addOperators(num="105", target=5))
-    # print(S.addOperators(num="00", target=0))
-    # print(S.addOperators(num="3456237490", target=9191))
+    print(S.addOperators(num="00", target=0))
+    print(S.addOperators(num="3456237490", target=9191))
