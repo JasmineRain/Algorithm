@@ -36,27 +36,19 @@ class Solution:
     def connect(self, root: 'Node') -> 'Node':
         if not root:
             return root
-        pre = root
+        cur = root
 
-        while pre:
-            cur = pre
+        while cur:
+            start = Node(0)
+            tail = start
             while cur:
-                cur.left.next = cur.right
-                if cur.next:
-                    cur.right.next = cur.next.left
+                if cur.left:
+                    tail.next = cur.left
+                    tail = tail.next
+                if cur.right:
+                    tail.next = cur.right
+                    tail = tail.next
                 cur = cur.next
-            pre = pre.left
-        return root
+            cur = start.next
 
-    # DFS
-    # def connect(self, root: 'Node') -> 'Node':
-    #
-    #     def dfs(root, next):
-    #         if not root:
-    #             return
-    #         root.next = next
-    #         dfs(root.left, root.right)
-    #         dfs(root.right, root.next.left if root.next else None)
-    #
-    #     dfs(root, None)
-    #     return root
+        return root
