@@ -3,17 +3,19 @@ from typing import List
 
 class Solution:
     def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
-        left = right = 0
+        left = 0
         product = 1
         ans = 0
-        while right < len(nums):
+        for right in range(len(nums)):
             product *= nums[right]
-            right += 1
-            while product >= k:
+            while product >= k and left <= right:
                 product /= nums[left]
                 left += 1
+            ans += right - left + 1
+
+        return ans
 
 
 if __name__ == "__main__":
     S = Solution()
-    print(S.numSubarrayProductLessThanK(nums=[10, 5, 2, 6], k=100))
+    print(S.numSubarrayProductLessThanK(nums=[1, 2, 3], k=0))
