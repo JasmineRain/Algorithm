@@ -5,7 +5,21 @@ class Solution:
 
     # 原地哈希
     def firstMissingPositive(self, nums: List[int]) -> int:
+        length = len(nums)
 
+        for i in range(length):
+            if nums[i] <= 0:
+                nums[i] = length + 1
+
+        for i in range(length):
+            raw = abs(nums[i])
+            if raw <= length:
+                nums[raw - 1] = -abs(nums[raw - 1])
+
+        for i in range(length):
+            if nums[i] > 0:
+                return i + 1
+        return length + 1
 
 
 if __name__ == "__main__":
