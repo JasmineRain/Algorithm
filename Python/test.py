@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 class Solution:
 
     def divide(self, s):
@@ -31,6 +34,9 @@ class Solution:
 
 if __name__ == "__main__":
     S = Solution()
+    c = Counter()
+    c['123'] += 1
+    print(c)
     # expect output 1
     print(S.divide("aab"))
     print(S.divide("aaaaa"))
