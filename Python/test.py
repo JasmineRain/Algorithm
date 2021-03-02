@@ -1,42 +1,47 @@
-from collections import Counter
-
+# class Solution:
+#     def calc(self, x, patience):
+#         left, right = 0., x
+#         while left < right:
+#             mid = (left + right) / 2
+#             temp = mid * mid
+#             if abs(temp - x) <= patience:
+#                 return mid
+#             elif temp < x:
+#                 left = mid
+#             else:
+#                 right = mid
 
 class Solution:
-
-    def divide(self, s):
-
+    def trace(self, m):
         ans = []
+        flag = [[False for _ in range(len(m[0]))] for _ in range(len(m))]
+        length = float("inf")
+        def backtrack(route, row, col):
+            if m[row][col] == 1 or flag[row][col]:
+                return
+            if m[row][col] == 2:
+                route.append([row, col])
+                ans.append(route.copy())
+                return
+            route.append([row, col])
+            flag[row][col] = True
+            if row + 1 < len(m):
+                backtrack(route, row + 1, col)
+            if row - 1 >= 0:
+                backtrack(route, row - 1, col)
+            if col + 1 < len(m[0]):
+                backtrack(route, row, col + 1)
+            if col - 1 >= 0:
+                backtrack(route, row, col - 1)
+            flag[row][col] = False
+            route.pop()
 
-        # backtrack     start
-        def backtrack(temp, start):
-            if start == len(s):
-                ans.append(len(temp))
-            for i in range(start, len(s)):
-                subs = s[start: i + 1]
-                if self.check(subs):
-                    backtrack(temp + [subs], i + 1)
-
-        backtrack([], 0)
-
-        return min(ans) - 1
-
-    # check available string
-    def check(self, s):
-        left, right = 0, len(s) - 1
-        while left < right:
-            if s[left] == s[right]:
-                left += 1
-                right -= 1
-            else:
-                return False
-        return True
+        backtrack([], 0, 0)
+        for r in ans:
+            length = min(length, len(r))
+        return length
 
 
 if __name__ == "__main__":
     S = Solution()
-    c = Counter()
-    c['123'] += 1
-    print(c)
-    # expect output 1
-    print(S.divide("aab"))
-    print(S.divide("aaaaa"))
+    print(S.trace())
