@@ -24,9 +24,10 @@ class Solution:
                         dp[i][j] = min(int(dp[i - 1][j - 1]), int(dp[i - 1][j]), int(dp[i][j - 1])) + 1
                 max_value = dp[i][j] if dp[i][j] >= max_value else max_value
 
-        return max_value**2
+        return max_value ** 2
 
 
 if __name__ == "__main__":
     S = Solution()
-    print(S.maximalSquare(matrix=[["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]))
+    print(S.maximalSquare(matrix=[["1", "0", "1", "0", "0"], ["1", "0", "1", "1", "1"], ["1", "1", "1", "1", "1"],
+                                  ["1", "0", "0", "1", "0"]]))
