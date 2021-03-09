@@ -1,5 +1,5 @@
 class Solution:
-    # 动态规划解法，dp[i][j]代表 s[i]到s[j]（包含两端）是否有效，状态转移由左下角元素得到，因此遍历从上至下，从左至右
+    # 动态规划解法，dp[i]代表以第i个字符结尾的最长有效括号长度
     def longestValidParentheses(self, s: str) -> int:
 
         # definition
