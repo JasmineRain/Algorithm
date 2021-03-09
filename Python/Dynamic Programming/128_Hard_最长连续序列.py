@@ -1,9 +1,24 @@
 from typing import List
+from collections import Counter
 
 
 class Solution:
+
+    # 哈希
     def longestConsecutive(self, nums: List[int]) -> int:
-        pass
+        exist = Counter(nums)
+        ans = 0
+        for num in nums:
+            if num - 1 in exist:
+                continue
+            else:
+                cur = num
+                length = 0
+                while cur in exist:
+                    length += 1
+                    cur += 1
+                ans = max(ans, length)
+        return ans
 
 
 if __name__ == "__main__":
